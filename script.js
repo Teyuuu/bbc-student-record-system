@@ -38,15 +38,15 @@ function saveStudents() {
 }
 
 function showAlert(message, type = 'success') {
-    const alertBox = document.getElementById('alertBox');
-    if (alertBox) {
-        alertBox.className = `alert alert-${type}`;
-        alertBox.textContent = message;
-        alertBox.style.display = 'block';
-        setTimeout(() => alertBox.style.display = 'none', 3000);
-    } else {
-        alert(message);
-    }
+    const iconType = type === 'error' ? 'error' : 'success';
+    Swal.fire({
+        icon: iconType,
+        title: type === 'error' ? 'Error!' : 'Success!',
+        text: message,
+        confirmButtonColor: '#6ba83d',
+        timer: 3000,
+        timerProgressBar: true
+    });
 }
 
 function showSection(sectionId) {
@@ -212,62 +212,142 @@ function enrollSubjects(student, type, prefix) {
 // View Modal
 window.showViewModal = function(studentNo) {
     const student = students.find(s => s.studentNo === studentNo);
-    const modal = document.getElementById('viewModal');
-    const details = document.getElementById('viewDetails');
     
-    if (modal && details && student) {
-        details.innerHTML = '';
+    if (student) {
+        let detailsHTML = '<div style="text-align: left;">';
         Object.keys(student).forEach(key => {
             if (key !== 'enrolledSubjects' && key !== 'password') {
-                const p = document.createElement('p');
-                p.innerHTML = `<strong>${key}:</strong> ${student[key] || 'N/A'}`;
-                p.style.marginBottom = '8px';
-                details.appendChild(p);
+                detailsHTML += `<p style="margin-bottom: 8px;"><strong>${key}:</strong> ${student[key] || 'N/A'}</p>`;
             }
         });
+        detailsHTML += '</div>';
         
-        const tbody = document.querySelector('#viewSubjectsTable tbody');
-        if (tbody) {
-            tbody.innerHTML = '';
-            (student.enrolledSubjects || []).forEach(sub => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${sub.year}</td><td>${sub.sem}</td><td>${sub.name}</td>`;
-                tbody.appendChild(tr);
+        let subjectsHTML = '<h4 style="color: var(--primary-green); margin: 20px 0 10px 0;">Enrolled Subjects</h4>';
+        if (student.enrolledSubjects && student.enrolledSubjects.length > 0) {
+            subjectsHTML += '<table class="table table-bordered table-hover mt-3">';
+            subjectsHTML += '<thead class="table-success"><tr><th>Year</th><th>Semester</th><th>Subject</th></tr></thead><tbody>';
+            student.enrolledSubjects.forEach(sub => {
+                subjectsHTML += `<tr><td>${sub.year}</td><td>${sub.sem}</td><td>${sub.name}</td></tr>`;
             });
+            subjectsHTML += '</tbody></table>';
+        } else {
+            subjectsHTML += '<p class="text-muted">No subjects enrolled yet.</p>';
         }
-        modal.style.display = 'block';
+        
+        Swal.fire({
+            title: 'Student Details',
+            html: detailsHTML + subjectsHTML,
+            width: '800px',
+            confirmButtonColor: '#6ba83d',
+            confirmButtonText: 'Close'
+        });
     }
 };
 
 // Edit Modal
 window.showEditModal = function(studentNo) {
     const student = students.find(s => s.studentNo === studentNo);
-    const modal = document.getElementById('editModal');
-    const form = document.getElementById('editForm');
     
-    if (modal && form && student) {
-        document.getElementById('editFullName').value = student.fullName;
-        document.getElementById('editNickname').value = student.nickname || '';
-        document.getElementById('editDob').value = student.dob || '';
-        document.getElementById('editAge').value = student.age || '';
-        document.getElementById('editMobileNo').value = student.mobileNo || '';
-        document.getElementById('editOccupation').value = student.occupation || '';
-        document.getElementById('editPresentAddress').value = student.presentAddress || '';
-        document.getElementById('editPassword').value = '';
-        form.dataset.studentno = studentNo;
-        modal.style.display = 'block';
+    if (student) {
+        Swal.fire({
+            title: 'Edit Student',
+            html: `
+                <div class="text-start">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" id="swal-fullName" class="form-control" value="${student.fullName}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nickname</label>
+                        <input type="text" id="swal-nickname" class="form-control" value="${student.nickname || ''}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" id="swal-dob" class="form-control" value="${student.dob || ''}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Age</label>
+                        <input type="number" id="swal-age" class="form-control" value="${student.age || ''}" min="15">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mobile No.</label>
+                        <input type="text" id="swal-mobile" class="form-control" value="${student.mobileNo || ''}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Occupation</label>
+                        <input type="text" id="swal-occupation" class="form-control" value="${student.occupation || ''}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Present Address</label>
+                        <input type="text" id="swal-address" class="form-control" value="${student.presentAddress || ''}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password (leave blank to keep current)</label>
+                        <input type="password" id="swal-password" class="form-control" placeholder="Enter new password">
+                    </div>
+                </div>
+            `,
+            width: '600px',
+            showCancelButton: true,
+            confirmButtonColor: '#6ba83d',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Save Changes',
+            preConfirm: () => {
+                const fullName = document.getElementById('swal-fullName').value.trim();
+                if (!fullName) {
+                    Swal.showValidationMessage('Full Name is required');
+                    return false;
+                }
+                return {
+                    fullName: fullName,
+                    nickname: document.getElementById('swal-nickname').value.trim(),
+                    dob: document.getElementById('swal-dob').value,
+                    age: document.getElementById('swal-age').value,
+                    mobileNo: document.getElementById('swal-mobile').value.trim(),
+                    occupation: document.getElementById('swal-occupation').value.trim(),
+                    presentAddress: document.getElementById('swal-address').value.trim(),
+                    password: document.getElementById('swal-password').value
+                };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const data = result.value;
+                student.fullName = data.fullName;
+                student.nickname = data.nickname;
+                student.dob = data.dob;
+                student.age = data.age;
+                student.mobileNo = data.mobileNo;
+                student.occupation = data.occupation;
+                student.presentAddress = data.presentAddress;
+                if (data.password) student.password = data.password;
+                
+                saveStudents();
+                populateAdminStudentsTable();
+                showAlert('Student updated successfully!');
+            }
+        });
     }
 };
 
 // Delete Student
 window.deleteStudent = function(studentNo) {
-    if (confirm('Are you sure you want to delete this student?')) {
-        students = students.filter(s => s.studentNo !== studentNo);
-        saveStudents();
-        populateAdminStudentsTable();
-        populateStudentSelects();
-        showAlert('Student deleted successfully!');
-    }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            students = students.filter(s => s.studentNo !== studentNo);
+            saveStudents();
+            populateAdminStudentsTable();
+            populateStudentSelects();
+            showAlert('Student deleted successfully!');
+        }
+    });
 };
 
 // Initialize when DOM is ready
@@ -347,9 +427,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 const pass = document.getElementById('adminPass').value;
                 if (user === adminUsername && pass === adminPassword) {
                     sessionStorage.setItem('user', JSON.stringify({type: 'admin'}));
-                    window.location.href = 'admin.html';
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Successful!',
+                        text: 'Redirecting to admin dashboard...',
+                        confirmButtonColor: '#6ba83d',
+                        timer: 1500,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'admin.html';
+                    });
                 } else {
-                    showAlert('Invalid admin credentials', 'error');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login Failed',
+                        text: 'Invalid admin credentials',
+                        confirmButtonColor: '#6ba83d'
+                    });
                 }
             } else {
                 const studentNo = document.getElementById('studentNoLogin').value;
@@ -357,9 +452,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 const student = students.find(s => s.studentNo === studentNo && s.password === pass);
                 if (student) {
                     sessionStorage.setItem('user', JSON.stringify({type: 'student', studentNo: student.studentNo}));
-                    window.location.href = 'student.html';
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Welcome ' + student.fullName + '!',
+                        text: 'Redirecting to your dashboard...',
+                        confirmButtonColor: '#6ba83d',
+                        timer: 1500,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'student.html';
+                    });
                 } else {
-                    showAlert('Invalid student credentials', 'error');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login Failed',
+                        text: 'Invalid student credentials',
+                        confirmButtonColor: '#6ba83d'
+                    });
                 }
             }
         });
@@ -401,7 +511,15 @@ document.addEventListener('DOMContentLoaded', function() {
             this.reset();
             document.getElementById('registrationPage').classList.remove('active');
             document.getElementById('loginPage').classList.add('active');
-            showAlert('Registration successful! Please login.');
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Registration Successful!',
+                text: 'Your account has been created. Please login.',
+                confirmButtonColor: '#6ba83d',
+                timer: 3000,
+                timerProgressBar: true
+            });
         });
     }
     
@@ -423,7 +541,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (studentNoInput) {
                 studentNoInput.value = String(nextId).padStart(4, '0');
             }
-            showAlert('Student registered successfully!');
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Student Registered!',
+                text: 'Student has been registered successfully.',
+                confirmButtonColor: '#6ba83d',
+                timer: 3000,
+                timerProgressBar: true
+            });
         });
     }
     
@@ -435,10 +561,27 @@ document.addEventListener('DOMContentLoaded', function() {
             const studentNo = document.getElementById('adminEnrollStudentSelect').value;
             const type = document.getElementById('adminEnrollType').value;
             const student = students.find(s => s.studentNo === studentNo);
-            if (!student) return showAlert('Student not found.', 'error');
+            if (!student) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Student not found.',
+                    confirmButtonColor: '#6ba83d'
+                });
+                return;
+            }
             enrollSubjects(student, type, 'admin');
             saveStudents();
-            showAlert('Enrollment successful!');
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Enrollment Successful!',
+                text: 'Student has been enrolled in the selected subjects.',
+                confirmButtonColor: '#6ba83d',
+                timer: 3000,
+                timerProgressBar: true
+            });
+            
             this.reset();
             document.getElementById('adminSingleOptions').style.display = 'none';
             document.getElementById('adminBundleOptions').style.display = 'block';
@@ -458,7 +601,16 @@ document.addEventListener('DOMContentLoaded', function() {
             populateStudentSubjectsTable(student);
             const countElem = document.getElementById('subjectCount');
             if (countElem) countElem.textContent = student.enrolledSubjects.length;
-            showAlert('Enrollment successful!');
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Enrollment Successful!',
+                text: 'You have been enrolled in the selected subjects.',
+                confirmButtonColor: '#6ba83d',
+                timer: 3000,
+                timerProgressBar: true
+            });
+            
             this.reset();
             document.getElementById('studentSingleOptions').style.display = 'none';
             document.getElementById('studentBundleOptions').style.display = 'block';
@@ -547,20 +699,23 @@ document.addEventListener('DOMContentLoaded', function() {
         viewProfileBtn.addEventListener('click', function() {
             const currentUser = JSON.parse(sessionStorage.getItem('user'));
             const student = students.find(s => s.studentNo === currentUser.studentNo);
-            const details = document.getElementById('profileDetails');
-            const modal = document.getElementById('profileModal');
             
-            if (details && modal && student) {
-                details.innerHTML = '';
+            if (student) {
+                let detailsHTML = '<div style="text-align: left;">';
                 Object.keys(student).forEach(key => {
                     if (key !== 'enrolledSubjects' && key !== 'password') {
-                        const p = document.createElement('p');
-                        p.innerHTML = `<strong>${key}:</strong> ${student[key] || 'N/A'}`;
-                        p.style.marginBottom = '8px';
-                        details.appendChild(p);
+                        detailsHTML += `<p style="margin-bottom: 8px;"><strong>${key}:</strong> ${student[key] || 'N/A'}</p>`;
                     }
                 });
-                modal.style.display = 'block';
+                detailsHTML += '</div>';
+                
+                Swal.fire({
+                    title: 'Your Profile',
+                    html: detailsHTML,
+                    width: '700px',
+                    confirmButtonColor: '#6ba83d',
+                    confirmButtonText: 'Close'
+                });
             }
         });
     }
