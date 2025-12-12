@@ -17,7 +17,7 @@
             display: block;
         }
         
-        /* Mobile responsive overrides */
+        /* Enhanced Mobile Responsive Styles */
         @media (max-width: 968px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -31,6 +31,7 @@
             
             .main-content {
                 margin-left: 0 !important;
+                padding: 15px !important;
             }
             
             .menu-toggle {
@@ -43,52 +44,221 @@
                 gap: 10px;
                 padding: 15px !important;
                 padding-left: 70px !important;
+                margin: -15px -15px 20px -15px !important;
             }
             
             .top-bar h2 {
                 font-size: 1.3em;
             }
             
-            .form-grid {
-                grid-template-columns: 1fr !important;
-            }
-            
             .card {
-                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 10px;
             }
             
-            .action-buttons {
-                flex-direction: column !important;
-                gap: 5px !important;
+            .card-header {
+                padding: 15px !important;
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 10px;
             }
             
-            .action-buttons button {
-                width: 100%;
+            .card-header h3 {
+                font-size: 1.1em !important;
             }
             
-            .inline {
-                flex-direction: column !important;
+            .card-header .badge {
+                align-self: flex-start;
+            }
+            
+            .card-body {
+                padding: 15px !important;
             }
             
             .table-responsive {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
+                margin: 0 -15px;
+                padding: 0 15px;
+            }
+            
+            .table {
+                font-size: 0.85em;
+                min-width: 600px;
+            }
+            
+            .table th,
+            .table td {
+                padding: 8px 6px;
+                white-space: nowrap;
+            }
+            
+            .btn-group {
+                display: flex;
+                flex-direction: row;
+                gap: 3px;
+            }
+            
+            .btn-group button {
+                padding: 6px 10px;
+                font-size: 0.85em;
+            }
+            
+            .form-label {
+                font-size: 0.9em;
+                margin-bottom: 6px;
+            }
+            
+            .form-control,
+            .form-select {
+                font-size: 16px !important; /* Prevent zoom on iOS */
+                padding: 10px;
+            }
+            
+            .form-control-lg,
+            .form-select-lg {
+                font-size: 16px !important;
+                padding: 12px;
+            }
+            
+            .btn-lg {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+            
+            .alert {
+                font-size: 0.9em;
+                padding: 12px;
+            }
+            
+            .input-group-text {
+                padding: 10px 12px;
+            }
+            
+            /* Stack buttons on mobile */
+            .row.g-3 > .col-md-4.d-flex {
+                margin-top: 10px;
             }
             
             /* Ensure SweetAlert appears above sidebar on mobile */
             .swal2-container {
                 z-index: 10000 !important;
             }
+            
+            /* Better spacing for forms */
+            .row.g-3 {
+                --bs-gutter-y: 1rem;
+            }
         }
         
         @media (max-width: 576px) {
+            .top-bar h2 {
+                font-size: 1.1em;
+            }
+            
+            .user-info {
+                width: 100%;
+                justify-content: center;
+            }
+            
             .user-info span {
                 display: none;
             }
             
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1em;
+            }
+            
             .sidebar-nav button {
-                font-size: 14px;
-                padding: 12px 15px;
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+            
+            .sidebar-header h1 {
+                font-size: 1.3em;
+            }
+            
+            .card-header h3 {
+                font-size: 1em !important;
+            }
+            
+            .badge {
+                font-size: 0.75em;
+            }
+            
+            .table {
+                font-size: 0.8em;
+                min-width: 500px;
+            }
+            
+            .btn-group button {
+                padding: 5px 8px;
+                font-size: 0.8em;
+            }
+            
+            .btn-group button i {
+                font-size: 0.9em;
+            }
+            
+            /* Stack all buttons vertically on small screens */
+            .d-flex.gap-2,
+            .d-flex.gap-3 {
+                flex-direction: column !important;
+                gap: 10px !important;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .btn-lg {
+                padding: 10px 16px;
+                font-size: 0.95em;
+            }
+            
+            /* Better alert sizing */
+            .alert i.fs-4 {
+                font-size: 1.5em !important;
+            }
+            
+            /* Improve select multiple height */
+            select[multiple] {
+                height: 150px !important;
+            }
+        }
+        
+        /* Tablet specific adjustments */
+        @media (min-width: 577px) and (max-width: 968px) {
+            .table {
+                font-size: 0.9em;
+            }
+            
+            .btn-group {
+                gap: 5px;
+            }
+            
+            .card-header {
+                flex-direction: row !important;
+                align-items: center !important;
+            }
+        }
+        
+        /* Landscape phone orientation */
+        @media (max-width: 968px) and (orientation: landscape) {
+            .top-bar {
+                padding: 10px !important;
+                padding-left: 70px !important;
+                margin: -15px -15px 15px -15px !important;
+            }
+            
+            .top-bar h2 {
+                font-size: 1em;
+            }
+            
+            .card-header {
+                padding: 12px !important;
             }
         }
     </style>
@@ -130,19 +300,32 @@
             <!-- Students List Section -->
             <div id="adminStudents" class="dashboard-section active">
                 <div class="card">
-                    <h3><i class="bi bi-people-fill me-2"></i>Students List</h3>
-                    <div class="table-responsive">
-                        <table id="adminStudentsTable" class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Student No.</th>
-                                    <th>Full Name</th>
-                                    <th>Mobile No.</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0"><i class="bi bi-people-fill me-2"></i>Students List</h3>
+                        <span class="badge bg-light text-dark"><i class="bi bi-person-lines-fill me-1"></i><span id="totalStudents">0</span> Students</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text bg-success text-white">
+                                    <i class="bi bi-search"></i>
+                                </span>
+                                <input type="text" id="searchStudentInput" class="form-control" placeholder="Search by name, student number, or mobile...">
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="adminStudentsTable" class="table table-hover table-bordered">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th><i class="bi bi-hash me-1"></i>Student No.</th>
+                                        <th><i class="bi bi-person-fill me-1"></i>Full Name</th>
+                                        <th><i class="bi bi-phone-fill me-1"></i>Mobile No.</th>
+                                        <th class="text-center"><i class="bi bi-gear-fill me-1"></i>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,221 +333,273 @@
             <!-- Register Student Section -->
             <div id="adminRegister" class="dashboard-section">
                 <div class="card">
-                    <h3><i class="bi bi-person-plus-fill me-2"></i>Register New Student</h3>
-                    <form id="adminRegistrationForm">
-                        <div class="form-grid">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>Register New Student</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info d-flex align-items-center">
+                            <i class="bi bi-info-circle-fill fs-4 me-3"></i>
                             <div>
-                                <label>Student No. (Auto)</label>
-                                <input type="text" id="adminStudentNo" disabled>
-                            </div>
-                            <div>
-                                <label>Full Name *</label>
-                                <input type="text" id="adminFullName" required>
-                            </div>
-                            <div>
-                                <label>Nickname</label>
-                                <input type="text" id="adminNickname">
-                            </div>
-                            <div>
-                                <label>Date of Birth *</label>
-                                <input type="date" id="adminDob" required>
-                            </div>
-                            <div>
-                                <label>Age *</label>
-                                <input type="number" id="adminAge" min="15" required>
-                            </div>
-                            <div>
-                                <label>Civil Status</label>
-                                <input type="text" id="adminCivilStatus">
-                            </div>
-                            <div>
-                                <label>Nationality</label>
-                                <input type="text" id="adminNationality" value="Filipino">
-                            </div>
-                            <div class="full">
-                                <label>Present Address</label>
-                                <input type="text" id="adminPresentAddress">
-                            </div>
-                            <div>
-                                <label>Mobile No.</label>
-                                <input type="text" id="adminMobileNo">
-                            </div>
-                            <div>
-                                <label>Occupation</label>
-                                <input type="text" id="adminOccupation">
-                            </div>
-                            <div class="full">
-                                <label>Business/Company Address</label>
-                                <input type="text" id="adminBusinessAddress">
-                            </div>
-                            <div>
-                                <label>Business Tel No.</label>
-                                <input type="text" id="adminBusinessTel">
-                            </div>
-                            <div>
-                                <label>School Graduated</label>
-                                <input type="text" id="adminSchoolGraduated">
-                            </div>
-                            <div>
-                                <label>Date Graduated</label>
-                                <input type="date" id="adminDateGraduated">
-                            </div>
-                            <div class="full">
-                                <label>Degree/Honors/Awards</label>
-                                <input type="text" id="adminDegreeAwards">
-                            </div>
-                            <div>
-                                <label>Character Reference Name</label>
-                                <input type="text" id="adminCharRefName">
-                            </div>
-                            <div>
-                                <label>Reference Contact</label>
-                                <input type="text" id="adminRefContact">
-                            </div>
-                            <div>
-                                <label>Emergency Contact Name</label>
-                                <input type="text" id="adminEmergencyName">
-                            </div>
-                            <div class="full">
-                                <label>Emergency Address</label>
-                                <input type="text" id="adminEmergencyAddress">
-                            </div>
-                            <div>
-                                <label>Emergency No.</label>
-                                <input type="text" id="adminEmergencyNo">
-                            </div>
-                            <div>
-                                <label>Relation</label>
-                                <input type="text" id="adminRelation">
-                            </div>
-                            <div>
-                                <label>Home Church</label>
-                                <input type="text" id="adminHomeChurch">
-                            </div>
-                            <div class="full">
-                                <label>Church Address</label>
-                                <input type="text" id="adminChurchAddress">
-                            </div>
-                            <div>
-                                <label>Pastor's Name</label>
-                                <input type="text" id="adminPastorName">
-                            </div>
-                            <div>
-                                <label>Date Saved</label>
-                                <input type="date" id="adminDateSaved">
-                            </div>
-                            <div>
-                                <label>Date Baptized</label>
-                                <input type="date" id="adminDateBaptized">
-                            </div>
-                            <div class="full">
-                                <label>Ministries Involved</label>
-                                <input type="text" id="adminMinistries">
-                            </div>
-                            <div class="full">
-                                <label>Special Skills</label>
-                                <input type="text" id="adminSpecialSkills">
-                            </div>
-                            <div class="full">
-                                <label>Musical Instruments</label>
-                                <input type="text" id="adminInstruments">
-                            </div>
-                            <div class="full">
-                                <label>Password *</label>
-                                <input type="password" id="adminPassword" required>
-                            </div>
-                            <div class="full">
-                                <label>Reason for Enrolling</label>
-                                <textarea id="adminReasonEnrolling" rows="3"></textarea>
-                            </div>
-                            <div class="full">
-                                <label>Health Information</label>
-                                <textarea id="adminHealthInfo" rows="3"></textarea>
-                            </div>
-                            <div class="full">
-                                <label>Brief Testimony</label>
-                                <textarea id="adminTestimony" rows="5"></textarea>
+                                Fill in the student information below. Fields marked with <span class="text-danger">*</span> are required.
                             </div>
                         </div>
-                        <button type="submit" class="btn-primary" style="margin-top: 20px;">Register Student</button>
-                    </form>
+                        <form id="adminRegistrationForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-hash me-2"></i>Student No. (Auto)</label>
+                                    <input type="text" id="adminStudentNo" class="form-control bg-light" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-person-fill me-2"></i>Full Name <span class="text-danger">*</span></label>
+                                    <input type="text" id="adminFullName" class="form-control" placeholder="Enter full name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-person-badge me-2"></i>Nickname</label>
+                                    <input type="text" id="adminNickname" class="form-control" placeholder="Enter nickname">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-calendar-event me-2"></i>Date of Birth <span class="text-danger">*</span></label>
+                                    <input type="date" id="adminDob" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-123 me-2"></i>Age <span class="text-danger">*</span></label>
+                                    <input type="number" id="adminAge" class="form-control" min="15" placeholder="Enter age" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-heart-fill me-2"></i>Civil Status</label>
+                                    <input type="text" id="adminCivilStatus" class="form-control" placeholder="e.g., Single, Married">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-flag-fill me-2"></i>Nationality</label>
+                                    <input type="text" id="adminNationality" class="form-control" value="Filipino">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-geo-alt-fill me-2"></i>Present Address</label>
+                                    <input type="text" id="adminPresentAddress" class="form-control" placeholder="Enter complete address">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-phone-fill me-2"></i>Mobile No.</label>
+                                    <input type="text" id="adminMobileNo" class="form-control" placeholder="e.g., 0912-345-6789">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-briefcase-fill me-2"></i>Occupation</label>
+                                    <input type="text" id="adminOccupation" class="form-control" placeholder="Enter occupation">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-building me-2"></i>Business/Company Address</label>
+                                    <input type="text" id="adminBusinessAddress" class="form-control" placeholder="Enter business address">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-telephone-fill me-2"></i>Business Tel No.</label>
+                                    <input type="text" id="adminBusinessTel" class="form-control" placeholder="Enter telephone number">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-mortarboard-fill me-2"></i>School Graduated</label>
+                                    <input type="text" id="adminSchoolGraduated" class="form-control" placeholder="Enter school name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-calendar-check me-2"></i>Date Graduated</label>
+                                    <input type="date" id="adminDateGraduated" class="form-control">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-trophy-fill me-2"></i>Degree/Honors/Awards</label>
+                                    <input type="text" id="adminDegreeAwards" class="form-control" placeholder="Enter degrees, honors, or awards">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-person-check-fill me-2"></i>Character Reference Name</label>
+                                    <input type="text" id="adminCharRefName" class="form-control" placeholder="Enter reference name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-telephone me-2"></i>Reference Contact</label>
+                                    <input type="text" id="adminRefContact" class="form-control" placeholder="Enter contact number">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-person-exclamation me-2"></i>Emergency Contact Name</label>
+                                    <input type="text" id="adminEmergencyName" class="form-control" placeholder="Enter emergency contact name">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-house-fill me-2"></i>Emergency Address</label>
+                                    <input type="text" id="adminEmergencyAddress" class="form-control" placeholder="Enter emergency contact address">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-telephone-forward me-2"></i>Emergency No.</label>
+                                    <input type="text" id="adminEmergencyNo" class="form-control" placeholder="Enter emergency number">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-people me-2"></i>Relation</label>
+                                    <input type="text" id="adminRelation" class="form-control" placeholder="e.g., Father, Mother, Sibling">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-church me-2"></i>Home Church</label>
+                                    <input type="text" id="adminHomeChurch" class="form-control" placeholder="Enter church name">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-geo me-2"></i>Church Address</label>
+                                    <input type="text" id="adminChurchAddress" class="form-control" placeholder="Enter church address">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-person-badge-fill me-2"></i>Pastor's Name</label>
+                                    <input type="text" id="adminPastorName" class="form-control" placeholder="Enter pastor's name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-calendar-heart me-2"></i>Date Saved</label>
+                                    <input type="date" id="adminDateSaved" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-water me-2"></i>Date Baptized</label>
+                                    <input type="date" id="adminDateBaptized" class="form-control">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-journal-check me-2"></i>Ministries Involved</label>
+                                    <input type="text" id="adminMinistries" class="form-control" placeholder="Enter ministries (comma separated)">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-star-fill me-2"></i>Special Skills</label>
+                                    <input type="text" id="adminSpecialSkills" class="form-control" placeholder="Enter special skills">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-music-note-beamed me-2"></i>Musical Instruments</label>
+                                    <input type="text" id="adminInstruments" class="form-control" placeholder="Enter instruments">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-key-fill me-2"></i>Password <span class="text-danger">*</span></label>
+                                    <input type="password" id="adminPassword" class="form-control" placeholder="Enter password" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-chat-left-text me-2"></i>Reason for Enrolling</label>
+                                    <textarea id="adminReasonEnrolling" class="form-control" rows="3" placeholder="Share your reason for enrolling..."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-heart-pulse me-2"></i>Health Information</label>
+                                    <textarea id="adminHealthInfo" class="form-control" rows="3" placeholder="Any medical conditions, allergies, or health concerns..."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-book-half me-2"></i>Brief Testimony</label>
+                                    <textarea id="adminTestimony" class="form-control" rows="5" placeholder="Share your testimony..."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        <i class="bi bi-check-circle me-2"></i>Register Student
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-secondary btn-lg ms-2">
+                                        <i class="bi bi-arrow-clockwise me-2"></i>Reset Form
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
             <!-- Enroll Student Section -->
             <div id="adminEnroll" class="dashboard-section">
                 <div class="card">
-                    <h3><i class="bi bi-clipboard-check-fill me-2"></i>Enroll Student</h3>
-                    <form id="adminEnrollmentForm">
-                        <div class="form-grid">
-                            <div class="full">
-                                <label>Select Student *</label>
-                                <select id="adminEnrollStudentSelect" required></select>
-                            </div>
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0"><i class="bi bi-clipboard-check-fill me-2"></i>Enroll Student</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-warning d-flex align-items-center">
+                            <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
                             <div>
-                                <label>Enrollment Type *</label>
-                                <select id="adminEnrollType" required>
-                                    <option value="bundle">Bundle (Full Semester)</option>
-                                    <option value="single">Single Subjects</option>
-                                </select>
+                                Select a student and choose enrollment type. Bundle enrolls all subjects for the selected semester.
                             </div>
                         </div>
-
-                        <div id="adminBundleOptions" style="margin-top: 20px;">
-                            <div class="form-grid">
-                                <div>
-                                    <label>Year Level *</label>
-                                    <select id="adminYearSelect" required>
-                                        <option value="1st Year">1st Year</option>
-                                        <option value="2nd Year">2nd Year</option>
-                                        <option value="3rd Year">3rd Year</option>
+                        <form id="adminEnrollmentForm">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label"><i class="bi bi-person-circle me-2"></i>Select Student <span class="text-danger">*</span></label>
+                                    <select id="adminEnrollStudentSelect" class="form-select form-select-lg" required>
+                                        <option value="">-- Choose Student --</option>
                                     </select>
                                 </div>
-                                <div>
-                                    <label>Semester *</label>
-                                    <select id="adminSemSelect" required>
-                                        <option value="1st Sem">1st Semester</option>
-                                        <option value="2nd Sem">2nd Semester</option>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-card-checklist me-2"></i>Enrollment Type <span class="text-danger">*</span></label>
+                                    <select id="adminEnrollType" class="form-select form-select-lg" required>
+                                        <option value="bundle">📦 Bundle (Full Semester)</option>
+                                        <option value="single">📝 Single Subjects</option>
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div id="adminSingleOptions" style="display:none; margin-top: 20px;">
-                            <label>Select Subjects (Hold Ctrl/Cmd to select multiple) *</label>
-                            <select id="adminSubjectsMulti" multiple required></select>
-                        </div>
+                            <div id="adminBundleOptions" class="mt-4">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label"><i class="bi bi-calendar3 me-2"></i>Year Level <span class="text-danger">*</span></label>
+                                        <select id="adminYearSelect" class="form-select form-select-lg" required>
+                                            <option value="1st Year">1️⃣ 1st Year</option>
+                                            <option value="2nd Year">2️⃣ 2nd Year</option>
+                                            <option value="3rd Year">3️⃣ 3rd Year</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label"><i class="bi bi-calendar-range me-2"></i>Semester <span class="text-danger">*</span></label>
+                                        <select id="adminSemSelect" class="form-select form-select-lg" required>
+                                            <option value="1st Sem">📅 1st Semester</option>
+                                            <option value="2nd Sem">📅 2nd Semester</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <button type="submit" class="btn-primary" style="margin-top: 20px;">Enroll Student</button>
-                    </form>
+                            <div id="adminSingleOptions" style="display:none;" class="mt-4">
+                                <label class="form-label"><i class="bi bi-list-check me-2"></i>Select Subjects (Hold Ctrl/Cmd to select multiple) <span class="text-danger">*</span></label>
+                                <select id="adminSubjectsMulti" class="form-select" multiple required style="height: 200px;"></select>
+                                <small class="text-muted"><i class="bi bi-info-circle me-1"></i>Hold Ctrl (Windows) or Cmd (Mac) to select multiple subjects</small>
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="bi bi-check-circle-fill me-2"></i>Enroll Student
+                                </button>
+                                <button type="reset" class="btn btn-outline-secondary btn-lg ms-2">
+                                    <i class="bi bi-x-circle me-2"></i>Clear Selection
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
             <!-- Search Section -->
             <div id="adminSearch" class="dashboard-section">
                 <div class="card">
-                    <h3><i class="bi bi-search me-2"></i>Search Student Subjects</h3>
-                    <form id="searchForm" class="inline">
-                        <div>
-                            <label>Enter Full Name</label>
-                            <input type="text" id="searchName" placeholder="Enter full name exactly" required>
-                        </div>
-                        <button type="submit" class="btn-primary"><i class="bi bi-search me-1"></i>Search</button>
-                    </form>
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0"><i class="bi bi-search me-2"></i>Search Student Subjects</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="searchForm">
+                            <div class="row g-3">
+                                <div class="col-md-8">
+                                    <label class="form-label"><i class="bi bi-person-search me-2"></i>Enter Full Name</label>
+                                    <input type="text" id="searchName" class="form-control form-control-lg" placeholder="Enter student's full name exactly..." required>
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-success btn-lg w-100">
+                                        <i class="bi bi-search me-2"></i>Search
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
 
-                    <div id="searchResults" style="display:none; margin-top: 25px;">
-                        <h4 id="resultName" style="color: var(--primary-green); font-size: 1.3em;"></h4>
-                        <div class="table-responsive">
-                            <table id="subjectsTable" class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Year Level</th>
-                                        <th>Semester</th>
-                                        <th>Subject Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                        <div id="searchResults" style="display:none;" class="mt-4">
+                            <div class="alert alert-success d-flex align-items-center">
+                                <i class="bi bi-check-circle-fill fs-4 me-3"></i>
+                                <div>
+                                    <h4 id="resultName" class="mb-0"></h4>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="subjectsTable" class="table table-hover table-bordered">
+                                    <thead class="table-success">
+                                        <tr>
+                                            <th><i class="bi bi-calendar3 me-1"></i>Year Level</th>
+                                            <th><i class="bi bi-calendar-range me-1"></i>Semester</th>
+                                            <th><i class="bi bi-book-fill me-1"></i>Subject Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

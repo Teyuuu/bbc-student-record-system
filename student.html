@@ -125,29 +125,73 @@
             <!-- Student Home Section -->
             <div id="studentHome" class="dashboard-section active">
                 <div class="card">
-                    <h3><i class="bi bi-speedometer2 me-2"></i>Dashboard Overview</h3>
-                    <div class="row g-3 mt-2">
-                        <div class="col-md-6">
-                            <div style="background: linear-gradient(135deg, var(--accent-green), var(--light-green)); color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                                <h4 style="margin: 0 0 10px 0; font-size: 1.1em;"><i class="bi bi-book-fill me-2"></i>Enrolled Subjects</h4>
-                                <p style="font-size: 2.5em; margin: 0; font-weight: bold;" id="subjectCount">0</p>
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0"><i class="bi bi-speedometer2 me-2"></i>Dashboard Overview</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-4 mt-2">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="stat-card stat-success">
+                                    <div class="stat-icon">
+                                        <i class="bi bi-book-fill"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h5>Enrolled Subjects</h5>
+                                        <h2 id="subjectCount">0</h2>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div style="background: linear-gradient(135deg, #2196F3, #1976D2); color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                                <h4 style="margin: 0 0 10px 0; font-size: 1.1em;"><i class="bi bi-person-check-fill me-2"></i>Student Status</h4>
-                                <p style="font-size: 1.5em; margin: 0; font-weight: bold;">Active</p>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="stat-card stat-primary">
+                                    <div class="stat-icon">
+                                        <i class="bi bi-person-check-fill"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h5>Status</h5>
+                                        <h3>Active</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="stat-card stat-info">
+                                    <div class="stat-icon">
+                                        <i class="bi bi-calendar-check-fill"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h5>Academic Year</h5>
+                                        <h3>2024-2025</h3>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3><i class="bi bi-lightning-fill me-2"></i>Quick Actions</h3>
-                    <div class="d-flex gap-2 flex-wrap mt-3">
-                        <button class="btn btn-success" onclick="showSection('studentEnrollment')"><i class="bi bi-clipboard-plus me-1"></i> Enroll in Subjects</button>
-                        <button class="btn btn-primary" onclick="showSection('studentSubjects')"><i class="bi bi-book-fill me-1"></i> View My Subjects</button>
-                        <button class="btn btn-info" onclick="document.getElementById('viewProfile').click()"><i class="bi bi-person-circle me-1"></i> View Profile</button>
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0"><i class="bi bi-lightning-fill me-2"></i>Quick Actions</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <button class="btn btn-success btn-lg w-100 action-btn" onclick="showSection('studentEnrollment')">
+                                    <i class="bi bi-clipboard-plus fs-1 d-block mb-2"></i>
+                                    <span>Enroll Subjects</span>
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-primary btn-lg w-100 action-btn" onclick="showSection('studentSubjects')">
+                                    <i class="bi bi-book-fill fs-1 d-block mb-2"></i>
+                                    <span>My Subjects</span>
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-info btn-lg w-100 action-btn" onclick="document.getElementById('viewProfile').click()">
+                                    <i class="bi bi-person-circle fs-1 d-block mb-2"></i>
+                                    <span>View Profile</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -155,63 +199,86 @@
             <!-- Student Enrollment Section -->
             <div id="studentEnrollment" class="dashboard-section">
                 <div class="card">
-                    <h3><i class="bi bi-clipboard-plus me-2"></i>Enroll to Subjects</h3>
-                    <form id="studentEnrollmentForm">
-                        <div class="form-grid">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0"><i class="bi bi-clipboard-plus me-2"></i>Enroll to Subjects</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info d-flex align-items-center">
+                            <i class="bi bi-info-circle-fill fs-4 me-3"></i>
                             <div>
-                                <label>Enrollment Type *</label>
-                                <select id="studentEnrollType" required>
-                                    <option value="bundle">Bundle (Full Semester)</option>
-                                    <option value="single">Single Subjects</option>
-                                </select>
+                                Choose enrollment type and select your subjects. Bundle enrollment includes all subjects for the semester.
                             </div>
                         </div>
-
-                        <div id="studentBundleOptions" style="margin-top: 20px;">
-                            <div class="form-grid">
-                                <div>
-                                    <label>Year Level *</label>
-                                    <select id="studentYearSelect" required>
-                                        <option value="1st Year">1st Year</option>
-                                        <option value="2nd Year">2nd Year</option>
-                                        <option value="3rd Year">3rd Year</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label>Semester *</label>
-                                    <select id="studentSemSelect" required>
-                                        <option value="1st Sem">1st Semester</option>
-                                        <option value="2nd Sem">2nd Semester</option>
+                        <form id="studentEnrollmentForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-card-checklist me-2"></i>Enrollment Type <span class="text-danger">*</span></label>
+                                    <select id="studentEnrollType" class="form-select form-select-lg" required>
+                                        <option value="bundle">📦 Bundle (Full Semester)</option>
+                                        <option value="single">📝 Single Subjects</option>
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div id="studentSingleOptions" style="display:none; margin-top: 20px;">
-                            <label>Select Subjects (Hold Ctrl/Cmd to select multiple) *</label>
-                            <select id="studentSubjectsMulti" multiple required></select>
-                        </div>
+                            <div id="studentBundleOptions" class="mt-4">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label"><i class="bi bi-calendar3 me-2"></i>Year Level <span class="text-danger">*</span></label>
+                                        <select id="studentYearSelect" class="form-select form-select-lg" required>
+                                            <option value="1st Year">1st Year</option>
+                                            <option value="2nd Year">2nd Year</option>
+                                            <option value="3rd Year">3rd Year</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label"><i class="bi bi-calendar-range me-2"></i>Semester <span class="text-danger">*</span></label>
+                                        <select id="studentSemSelect" class="form-select form-select-lg" required>
+                                            <option value="1st Sem">1st Semester</option>
+                                            <option value="2nd Sem">2nd Semester</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <button type="submit" class="btn-primary" style="margin-top: 20px;">Enroll</button>
-                    </form>
+                            <div id="studentSingleOptions" style="display:none;" class="mt-4">
+                                <label class="form-label"><i class="bi bi-list-check me-2"></i>Select Subjects (Hold Ctrl/Cmd to select multiple) <span class="text-danger">*</span></label>
+                                <select id="studentSubjectsMulti" class="form-select" multiple required style="height: 200px;"></select>
+                                <small class="text-muted"><i class="bi bi-info-circle me-1"></i>Hold Ctrl (Windows) or Cmd (Mac) to select multiple subjects</small>
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="bi bi-check-circle-fill me-2"></i>Enroll Now
+                                </button>
+                                <button type="reset" class="btn btn-outline-secondary btn-lg ms-2">
+                                    <i class="bi bi-x-circle me-2"></i>Clear Selection
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
             <!-- Student Subjects Section -->
             <div id="studentSubjects" class="dashboard-section">
                 <div class="card">
-                    <h3><i class="bi bi-book-fill me-2"></i>Your Enrolled Subjects</h3>
-                    <div class="table-responsive">
-                        <table id="studentSubjectsTable" class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Year Level</th>
-                                    <th>Semester</th>
-                                    <th>Subject Name</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0"><i class="bi bi-book-fill me-2"></i>Your Enrolled Subjects</h3>
+                        <span class="badge bg-light text-dark"><i class="bi bi-bookmark-fill me-1"></i><span id="studentSubjectCount">0</span> Subjects</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="studentSubjectsTable" class="table table-hover table-bordered">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th><i class="bi bi-calendar3 me-1"></i>Year Level</th>
+                                        <th><i class="bi bi-calendar-range me-1"></i>Semester</th>
+                                        <th><i class="bi bi-book-fill me-1"></i>Subject Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

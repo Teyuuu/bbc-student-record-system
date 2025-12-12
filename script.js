@@ -129,21 +129,51 @@ function populateSubjectsMulti(selects) {
 
 function populateAdminStudentsTable() {
     const tbody = document.querySelector('#adminStudentsTable tbody');
+    const totalStudentsElem = document.getElementById('totalStudents');
+    
     if (tbody) {
         tbody.innerHTML = '';
         students.forEach(student => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${student.studentNo}</td>
-                <td>${student.fullName}</td>
-                <td>${student.mobileNo || 'N/A'}</td>
-                <td class="action-buttons">
-                    <button class="btn btn-info btn-sm" onclick="showViewModal('${student.studentNo}')"><i class="bi bi-eye-fill"></i> View</button>
-                    <button class="btn btn-warning btn-sm" onclick="showEditModal('${student.studentNo}')"><i class="bi bi-pencil-fill"></i> Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteStudent('${student.studentNo}')"><i class="bi bi-trash-fill"></i> Delete</button>
+                <td><span class="badge bg-secondary">${student.studentNo}</span></td>
+                <td><i class="bi bi-person-fill me-2 text-success"></i>${student.fullName}</td>
+                <td><i class="bi bi-phone-fill me-2 text-primary"></i>${student.mobileNo || 'N/A'}</td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button class="btn btn-info" onclick="showViewModal('${student.studentNo}')" title="View Details">
+                            <i class="bi bi-eye-fill"></i>
+                        </button>
+                        <button class="btn btn-warning" onclick="showEditModal('${student.studentNo}')" title="Edit Student">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteStudent('${student.studentNo}')" title="Delete Student">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </div>
                 </td>
             `;
             tbody.appendChild(tr);
+        });
+        
+        if (totalStudentsElem) {
+            totalStudentsElem.textContent = students.length;
+        }
+    }
+}
+
+// Add search functionality for students table
+function setupStudentSearch() {
+    const searchInput = document.getElementById('searchStudentInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#adminStudentsTable tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
         });
     }
 }
@@ -165,17 +195,36 @@ function showStudentDashboard(student) {
 
 function populateStudentSubjectsTable(student) {
     const tbody = document.querySelector('#studentSubjectsTable tbody');
+    const countElem = document.getElementById('studentSubjectCount');
+    
     if (tbody) {
         tbody.innerHTML = '';
-        (student.enrolledSubjects || []).forEach(sub => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${sub.year}</td>
-                <td>${sub.sem}</td>
-                <td>${sub.name}</td>
+        const subjects = student.enrolledSubjects || [];
+        
+        if (subjects.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="3" class="text-center text-muted py-4">
+                        <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                        <p class="mb-0">No subjects enrolled yet. Click "Enroll Subjects" to get started!</p>
+                    </td>
+                </tr>
             `;
-            tbody.appendChild(tr);
-        });
+        } else {
+            subjects.forEach(sub => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><span class="badge bg-primary">${sub.year}</span></td>
+                    <td><span class="badge bg-info">${sub.sem}</span></td>
+                    <td><i class="bi bi-book me-2 text-success"></i>${sub.name}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        
+        if (countElem) {
+            countElem.textContent = subjects.length;
+        }
     }
 }
 
@@ -884,6 +933,7 @@ document.addEventListener('DOMContentLoaded', function() {
             populateStudentSelects();
             populateSubjectsMulti([document.getElementById('adminSubjectsMulti')].filter(Boolean));
             populateAdminStudentsTable();
+            setupStudentSearch(); // Add search functionality
             const studentNoInput = document.getElementById('adminStudentNo');
             if (studentNoInput) {
                 studentNoInput.value = String(nextId).padStart(4, '0');
