@@ -138,9 +138,9 @@ function populateAdminStudentsTable() {
                 <td>${student.fullName}</td>
                 <td>${student.mobileNo || 'N/A'}</td>
                 <td class="action-buttons">
-                    <button class="btn-view" onclick="showViewModal('${student.studentNo}')">View</button>
-                    <button class="btn-edit" onclick="showEditModal('${student.studentNo}')">Edit</button>
-                    <button class="btn-delete" onclick="deleteStudent('${student.studentNo}')">Delete</button>
+                    <button class="btn btn-info btn-sm" onclick="showViewModal('${student.studentNo}')"><i class="bi bi-eye-fill"></i> View</button>
+                    <button class="btn btn-warning btn-sm" onclick="showEditModal('${student.studentNo}')"><i class="bi bi-pencil-fill"></i> Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteStudent('${student.studentNo}')"><i class="bi bi-trash-fill"></i> Delete</button>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -360,11 +360,60 @@ document.addEventListener('DOMContentLoaded', function() {
     // Menu toggle
     const menuToggle = document.getElementById('menuToggle');
     if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
             const adminSidebar = document.getElementById('adminSidebar');
             const studentSidebar = document.getElementById('studentSidebar');
             if (adminSidebar) adminSidebar.classList.toggle('show');
             if (studentSidebar) studentSidebar.classList.toggle('show');
+        });
+        
+        // Prevent sidebar from closing when clicking inside it
+        const adminSidebar = document.getElementById('adminSidebar');
+        const studentSidebar = document.getElementById('studentSidebar');
+        
+        if (adminSidebar) {
+            adminSidebar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+        
+        if (studentSidebar) {
+            studentSidebar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+        
+        // Close sidebar when clicking outside (only on mobile)
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 968) {
+                const adminSidebar = document.getElementById('adminSidebar');
+                const studentSidebar = document.getElementById('studentSidebar');
+                
+                if (adminSidebar && adminSidebar.classList.contains('show')) {
+                    if (!adminSidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                        adminSidebar.classList.remove('show');
+                    }
+                }
+                
+                if (studentSidebar && studentSidebar.classList.contains('show')) {
+                    if (!studentSidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                        studentSidebar.classList.remove('show');
+                    }
+                }
+            }
+        });
+        
+        // Close sidebar when clicking nav button on mobile
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (window.innerWidth <= 968) {
+                    const adminSidebar = document.getElementById('adminSidebar');
+                    const studentSidebar = document.getElementById('studentSidebar');
+                    if (adminSidebar) adminSidebar.classList.remove('show');
+                    if (studentSidebar) studentSidebar.classList.remove('show');
+                }
+            });
         });
     }
     
@@ -736,21 +785,95 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Logout buttons
+    // Logout buttons with confirmation
     const adminLogout = document.getElementById('adminLogout');
     const studentLogout = document.getElementById('studentLogout');
     
     if (adminLogout) {
-        adminLogout.addEventListener('click', function() {
-            sessionStorage.clear();
-            window.location.href = 'index.html';
+        adminLogout.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Close sidebar on mobile before showing modal
+            if (window.innerWidth <= 968) {
+                const adminSidebar = document.getElementById('adminSidebar');
+                if (adminSidebar) {
+                    adminSidebar.classList.remove('show');
+                }
+            }
+            
+            // Small delay to ensure sidebar closes before modal appears
+            setTimeout(() => {
+                Swal.fire({
+                    title: 'Logout Confirmation',
+                    text: 'Are you sure you want to logout?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#6ba83d',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: '<i class="bi bi-check-circle me-1"></i> Yes, logout',
+                    cancelButtonText: '<i class="bi bi-x-circle me-1"></i> Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        sessionStorage.clear();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Logged Out',
+                            text: 'You have been logged out successfully.',
+                            confirmButtonColor: '#6ba83d',
+                            timer: 1500,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.location.href = 'index.html';
+                        });
+                    }
+                });
+            }, 100);
         });
     }
     
     if (studentLogout) {
-        studentLogout.addEventListener('click', function() {
-            sessionStorage.clear();
-            window.location.href = 'index.html';
+        studentLogout.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Close sidebar on mobile before showing modal
+            if (window.innerWidth <= 968) {
+                const studentSidebar = document.getElementById('studentSidebar');
+                if (studentSidebar) {
+                    studentSidebar.classList.remove('show');
+                }
+            }
+            
+            // Small delay to ensure sidebar closes before modal appears
+            setTimeout(() => {
+                Swal.fire({
+                    title: 'Logout Confirmation',
+                    text: 'Are you sure you want to logout?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#6ba83d',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: '<i class="bi bi-check-circle me-1"></i> Yes, logout',
+                    cancelButtonText: '<i class="bi bi-x-circle me-1"></i> Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        sessionStorage.clear();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Logged Out',
+                            text: 'You have been logged out successfully.',
+                            confirmButtonColor: '#6ba83d',
+                            timer: 1500,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.location.href = 'index.html';
+                        });
+                    }
+                });
+            }, 100);
         });
     }
     

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berean Bible College - Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -15,10 +16,87 @@
         .dashboard-section.active {
             display: block;
         }
+        
+        /* Mobile responsive overrides */
+        @media (max-width: 968px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 1000;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+                z-index: 1000;
+            }
+            
+            .main-content {
+                margin-left: 0 !important;
+            }
+            
+            .menu-toggle {
+                display: flex !important;
+                z-index: 1001;
+            }
+            
+            .top-bar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px !important;
+                padding-left: 70px !important;
+            }
+            
+            .top-bar h2 {
+                font-size: 1.3em;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column !important;
+                gap: 5px !important;
+            }
+            
+            .action-buttons button {
+                width: 100%;
+            }
+            
+            .inline {
+                flex-direction: column !important;
+            }
+            
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            /* Ensure SweetAlert appears above sidebar on mobile */
+            .swal2-container {
+                z-index: 10000 !important;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .user-info span {
+                display: none;
+            }
+            
+            .sidebar-nav button {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+        }
     </style>
 </head>
 <body>
-    <button class="menu-toggle" id="menuToggle">Menu</button>
+    <button class="menu-toggle" id="menuToggle">
+        <i class="bi bi-list"></i>
+    </button>
     
     <!-- Admin Dashboard -->
     <div id="adminDashboard" class="section active">
@@ -29,14 +107,14 @@
             </div>
             <nav>
                 <ul class="sidebar-nav">
-                    <li><button data-section="adminStudents" class="nav-btn active">Students List</button></li>
-                    <li><button data-section="adminRegister" class="nav-btn">Register Student</button></li>
-                    <li><button data-section="adminEnroll" class="nav-btn">Enroll Student</button></li>
-                    <li><button data-section="adminSearch" class="nav-btn">Search Subjects</button></li>
+                    <li><button data-section="adminStudents" class="nav-btn active"><i class="bi bi-people-fill"></i> Students List</button></li>
+                    <li><button data-section="adminRegister" class="nav-btn"><i class="bi bi-person-plus-fill"></i> Register Student</button></li>
+                    <li><button data-section="adminEnroll" class="nav-btn"><i class="bi bi-clipboard-check-fill"></i> Enroll Student</button></li>
+                    <li><button data-section="adminSearch" class="nav-btn"><i class="bi bi-search"></i> Search Subjects</button></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <button class="logout-btn" id="adminLogout">Logout</button>
+                <button class="logout-btn" id="adminLogout"><i class="bi bi-box-arrow-right"></i> Logout</button>
             </div>
         </aside>
 
@@ -52,25 +130,27 @@
             <!-- Students List Section -->
             <div id="adminStudents" class="dashboard-section active">
                 <div class="card">
-                    <h3>Students List</h3>
-                    <table id="adminStudentsTable">
-                        <thead>
-                            <tr>
-                                <th>Student No.</th>
-                                <th>Full Name</th>
-                                <th>Mobile No.</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <h3><i class="bi bi-people-fill me-2"></i>Students List</h3>
+                    <div class="table-responsive">
+                        <table id="adminStudentsTable" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Student No.</th>
+                                    <th>Full Name</th>
+                                    <th>Mobile No.</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
             <!-- Register Student Section -->
             <div id="adminRegister" class="dashboard-section">
                 <div class="card">
-                    <h3>Register New Student</h3>
+                    <h3><i class="bi bi-person-plus-fill me-2"></i>Register New Student</h3>
                     <form id="adminRegistrationForm">
                         <div class="form-grid">
                             <div>
@@ -214,7 +294,7 @@
             <!-- Enroll Student Section -->
             <div id="adminEnroll" class="dashboard-section">
                 <div class="card">
-                    <h3>Enroll Student</h3>
+                    <h3><i class="bi bi-clipboard-check-fill me-2"></i>Enroll Student</h3>
                     <form id="adminEnrollmentForm">
                         <div class="form-grid">
                             <div class="full">
@@ -263,27 +343,29 @@
             <!-- Search Section -->
             <div id="adminSearch" class="dashboard-section">
                 <div class="card">
-                    <h3>Search Student Subjects</h3>
+                    <h3><i class="bi bi-search me-2"></i>Search Student Subjects</h3>
                     <form id="searchForm" class="inline">
                         <div>
                             <label>Enter Full Name</label>
                             <input type="text" id="searchName" placeholder="Enter full name exactly" required>
                         </div>
-                        <button type="submit" class="btn-primary">Search</button>
+                        <button type="submit" class="btn-primary"><i class="bi bi-search me-1"></i>Search</button>
                     </form>
 
                     <div id="searchResults" style="display:none; margin-top: 25px;">
                         <h4 id="resultName" style="color: var(--primary-green); font-size: 1.3em;"></h4>
-                        <table id="subjectsTable">
-                            <thead>
-                                <tr>
-                                    <th>Year Level</th>
-                                    <th>Semester</th>
-                                    <th>Subject Name</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table id="subjectsTable" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Year Level</th>
+                                        <th>Semester</th>
+                                        <th>Subject Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
