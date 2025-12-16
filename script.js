@@ -64,39 +64,45 @@ function showSection(sectionId) {
 }
 
 function createStudentObject(prefix) {
+    // Get student number from the field if it exists, otherwise generate new one
+    const studentNoField = document.getElementById(prefix + 'StudentNo') || document.getElementById(prefix + 'studentNo');
+    const studentNo = studentNoField?.value || String(nextId).padStart(4, '0');
+    
+    console.log('Creating student with prefix:', prefix, 'Student No:', studentNo); // Debug log
+    
     return {
-        studentNo: String(nextId).padStart(4, '0'),
-        fullName: document.getElementById(prefix + 'fullName').value.trim(),
-        nickname: document.getElementById(prefix + 'nickname')?.value.trim() || '',
-        dob: document.getElementById(prefix + 'dob')?.value || '',
-        age: document.getElementById(prefix + 'age')?.value || '',
-        civilStatus: document.getElementById(prefix + 'civilStatus')?.value.trim() || '',
-        nationality: document.getElementById(prefix + 'nationality')?.value.trim() || '',
-        presentAddress: document.getElementById(prefix + 'presentAddress')?.value.trim() || '',
-        mobileNo: document.getElementById(prefix + 'mobileNo')?.value.trim() || '',
-        occupation: document.getElementById(prefix + 'occupation')?.value.trim() || '',
-        businessAddress: document.getElementById(prefix + 'businessAddress')?.value.trim() || '',
-        businessTel: document.getElementById(prefix + 'businessTel')?.value.trim() || '',
-        schoolGraduated: document.getElementById(prefix + 'schoolGraduated')?.value.trim() || '',
-        dateGraduated: document.getElementById(prefix + 'dateGraduated')?.value || '',
-        degreeAwards: document.getElementById(prefix + 'degreeAwards')?.value.trim() || '',
-        charRefName: document.getElementById(prefix + 'charRefName')?.value.trim() || '',
-        refContact: document.getElementById(prefix + 'refContact')?.value.trim() || '',
-        emergencyName: document.getElementById(prefix + 'emergencyName')?.value.trim() || '',
-        emergencyAddress: document.getElementById(prefix + 'emergencyAddress')?.value.trim() || '',
-        emergencyNo: document.getElementById(prefix + 'emergencyNo')?.value.trim() || '',
-        relation: document.getElementById(prefix + 'relation')?.value.trim() || '',
-        homeChurch: document.getElementById(prefix + 'homeChurch')?.value.trim() || '',
-        churchAddress: document.getElementById(prefix + 'churchAddress')?.value.trim() || '',
-        pastorName: document.getElementById(prefix + 'pastorName')?.value.trim() || '',
-        dateSaved: document.getElementById(prefix + 'dateSaved')?.value || '',
-        dateBaptized: document.getElementById(prefix + 'dateBaptized')?.value || '',
-        ministries: document.getElementById(prefix + 'ministries')?.value.trim() || '',
-        specialSkills: document.getElementById(prefix + 'specialSkills')?.value.trim() || '',
-        instruments: document.getElementById(prefix + 'instruments')?.value.trim() || '',
-        reasonEnrolling: document.getElementById(prefix + 'reasonEnrolling')?.value.trim() || '',
-        healthInfo: document.getElementById(prefix + 'healthInfo')?.value.trim() || '',
-        testimony: document.getElementById(prefix + 'testimony')?.value.trim() || ''
+        studentNo: studentNo,
+        fullName: document.getElementById(prefix + 'FullName')?.value.trim() || document.getElementById(prefix + 'fullName')?.value.trim() || '',
+        nickname: document.getElementById(prefix + 'Nickname')?.value.trim() || document.getElementById(prefix + 'nickname')?.value.trim() || '',
+        dob: document.getElementById(prefix + 'Dob')?.value || document.getElementById(prefix + 'dob')?.value || '',
+        age: document.getElementById(prefix + 'Age')?.value || document.getElementById(prefix + 'age')?.value || '',
+        civilStatus: document.getElementById(prefix + 'CivilStatus')?.value.trim() || document.getElementById(prefix + 'civilStatus')?.value.trim() || '',
+        nationality: document.getElementById(prefix + 'Nationality')?.value.trim() || document.getElementById(prefix + 'nationality')?.value.trim() || '',
+        presentAddress: document.getElementById(prefix + 'PresentAddress')?.value.trim() || document.getElementById(prefix + 'presentAddress')?.value.trim() || '',
+        mobileNo: document.getElementById(prefix + 'MobileNo')?.value.trim() || document.getElementById(prefix + 'mobileNo')?.value.trim() || '',
+        occupation: document.getElementById(prefix + 'Occupation')?.value.trim() || document.getElementById(prefix + 'occupation')?.value.trim() || '',
+        businessAddress: document.getElementById(prefix + 'BusinessAddress')?.value.trim() || document.getElementById(prefix + 'businessAddress')?.value.trim() || '',
+        businessTel: document.getElementById(prefix + 'BusinessTel')?.value.trim() || document.getElementById(prefix + 'businessTel')?.value.trim() || '',
+        schoolGraduated: document.getElementById(prefix + 'SchoolGraduated')?.value.trim() || document.getElementById(prefix + 'schoolGraduated')?.value.trim() || '',
+        dateGraduated: document.getElementById(prefix + 'DateGraduated')?.value || document.getElementById(prefix + 'dateGraduated')?.value || '',
+        degreeAwards: document.getElementById(prefix + 'DegreeAwards')?.value.trim() || document.getElementById(prefix + 'degreeAwards')?.value.trim() || '',
+        charRefName: document.getElementById(prefix + 'CharRefName')?.value.trim() || document.getElementById(prefix + 'charRefName')?.value.trim() || '',
+        refContact: document.getElementById(prefix + 'RefContact')?.value.trim() || document.getElementById(prefix + 'refContact')?.value.trim() || '',
+        emergencyName: document.getElementById(prefix + 'EmergencyName')?.value.trim() || document.getElementById(prefix + 'emergencyName')?.value.trim() || '',
+        emergencyAddress: document.getElementById(prefix + 'EmergencyAddress')?.value.trim() || document.getElementById(prefix + 'emergencyAddress')?.value.trim() || '',
+        emergencyNo: document.getElementById(prefix + 'EmergencyNo')?.value.trim() || document.getElementById(prefix + 'emergencyNo')?.value.trim() || '',
+        relation: document.getElementById(prefix + 'Relation')?.value.trim() || document.getElementById(prefix + 'relation')?.value.trim() || '',
+        homeChurch: document.getElementById(prefix + 'HomeChurch')?.value.trim() || document.getElementById(prefix + 'homeChurch')?.value.trim() || '',
+        churchAddress: document.getElementById(prefix + 'ChurchAddress')?.value.trim() || document.getElementById(prefix + 'churchAddress')?.value.trim() || '',
+        pastorName: document.getElementById(prefix + 'PastorName')?.value.trim() || document.getElementById(prefix + 'pastorName')?.value.trim() || '',
+        dateSaved: document.getElementById(prefix + 'DateSaved')?.value || document.getElementById(prefix + 'dateSaved')?.value || '',
+        dateBaptized: document.getElementById(prefix + 'DateBaptized')?.value || document.getElementById(prefix + 'dateBaptized')?.value || '',
+        ministries: document.getElementById(prefix + 'Ministries')?.value.trim() || document.getElementById(prefix + 'ministries')?.value.trim() || '',
+        specialSkills: document.getElementById(prefix + 'SpecialSkills')?.value.trim() || document.getElementById(prefix + 'specialSkills')?.value.trim() || '',
+        instruments: document.getElementById(prefix + 'Instruments')?.value.trim() || document.getElementById(prefix + 'instruments')?.value.trim() || '',
+        reasonEnrolling: document.getElementById(prefix + 'ReasonEnrolling')?.value.trim() || document.getElementById(prefix + 'reasonEnrolling')?.value.trim() || '',
+        healthInfo: document.getElementById(prefix + 'HealthInfo')?.value.trim() || document.getElementById(prefix + 'healthInfo')?.value.trim() || '',
+        testimony: document.getElementById(prefix + 'Testimony')?.value.trim() || document.getElementById(prefix + 'testimony')?.value.trim() || ''
     };
 }
 
@@ -303,35 +309,40 @@ window.showEditModal = function(studentNo) {
             html: `
                 <div class="text-start">
                     <div class="mb-3">
-                        <label class="form-label">Full Name *</label>
+                        <label class="form-label"><i class="bi bi-hash me-2"></i>Student No. *</label>
+                        <input type="text" id="swal-studentNo" class="form-control" value="${student.studentNo}" required>
+                        <small class="text-muted">Change student number if needed</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><i class="bi bi-person-fill me-2"></i>Full Name *</label>
                         <input type="text" id="swal-fullName" class="form-control" value="${student.fullName}" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Nickname</label>
+                        <label class="form-label"><i class="bi bi-person-badge me-2"></i>Nickname</label>
                         <input type="text" id="swal-nickname" class="form-control" value="${student.nickname || ''}">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Date of Birth</label>
+                        <label class="form-label"><i class="bi bi-calendar-event me-2"></i>Date of Birth</label>
                         <input type="date" id="swal-dob" class="form-control" value="${student.dob || ''}">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Age</label>
+                        <label class="form-label"><i class="bi bi-123 me-2"></i>Age</label>
                         <input type="number" id="swal-age" class="form-control" value="${student.age || ''}" min="15">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Mobile No.</label>
+                        <label class="form-label"><i class="bi bi-phone-fill me-2"></i>Mobile No.</label>
                         <input type="text" id="swal-mobile" class="form-control" value="${student.mobileNo || ''}">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Occupation</label>
+                        <label class="form-label"><i class="bi bi-briefcase-fill me-2"></i>Occupation</label>
                         <input type="text" id="swal-occupation" class="form-control" value="${student.occupation || ''}">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Present Address</label>
+                        <label class="form-label"><i class="bi bi-geo-alt-fill me-2"></i>Present Address</label>
                         <input type="text" id="swal-address" class="form-control" value="${student.presentAddress || ''}">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Password (leave blank to keep current)</label>
+                        <label class="form-label"><i class="bi bi-key-fill me-2"></i>Password (leave blank to keep current)</label>
                         <input type="password" id="swal-password" class="form-control" placeholder="Enter new password">
                     </div>
                 </div>
@@ -340,14 +351,33 @@ window.showEditModal = function(studentNo) {
             showCancelButton: true,
             confirmButtonColor: '#6ba83d',
             cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Save Changes',
+            confirmButtonText: '<i class="bi bi-check-circle me-1"></i> Save Changes',
+            cancelButtonText: '<i class="bi bi-x-circle me-1"></i> Cancel',
             preConfirm: () => {
+                const newStudentNo = document.getElementById('swal-studentNo').value.trim();
                 const fullName = document.getElementById('swal-fullName').value.trim();
+                
+                if (!newStudentNo) {
+                    Swal.showValidationMessage('Student Number is required');
+                    return false;
+                }
+                
                 if (!fullName) {
                     Swal.showValidationMessage('Full Name is required');
                     return false;
                 }
+                
+                // Check if new student number already exists (and it's not the current student)
+                if (newStudentNo !== studentNo) {
+                    const existingStudent = students.find(s => s.studentNo === newStudentNo && s.studentNo !== studentNo);
+                    if (existingStudent) {
+                        Swal.showValidationMessage('Student Number already exists');
+                        return false;
+                    }
+                }
+                
                 return {
+                    studentNo: newStudentNo,
                     fullName: fullName,
                     nickname: document.getElementById('swal-nickname').value.trim(),
                     dob: document.getElementById('swal-dob').value,
@@ -361,6 +391,9 @@ window.showEditModal = function(studentNo) {
         }).then((result) => {
             if (result.isConfirmed) {
                 const data = result.value;
+                
+                // Update student number if changed
+                student.studentNo = data.studentNo;
                 student.fullName = data.fullName;
                 student.nickname = data.nickname;
                 student.dob = data.dob;
@@ -372,7 +405,16 @@ window.showEditModal = function(studentNo) {
                 
                 saveStudents();
                 populateAdminStudentsTable();
-                showAlert('Student updated successfully!');
+                populateStudentSelects();
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Updated!',
+                    text: 'Student information has been updated successfully.',
+                    confirmButtonColor: '#6ba83d',
+                    timer: 2000,
+                    timerProgressBar: true
+                });
             }
         });
     }
@@ -621,35 +663,171 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Admin registration form
-    const adminRegistrationForm = document.getElementById('adminRegistrationForm');
-    if (adminRegistrationForm) {
-        adminRegistrationForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const student = createStudentObject('admin');
-            student.password = document.getElementById('adminPassword').value;
-            student.enrolledSubjects = [];
-            students.push(student);
-            nextId++;
-            saveStudents();
-            populateStudentSelects();
-            populateAdminStudentsTable();
-            this.reset();
-            const studentNoInput = document.getElementById('adminStudentNo');
-            if (studentNoInput) {
-                studentNoInput.value = String(nextId).padStart(4, '0');
-            }
+    // Complete working script for admin registration
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // Initialize next student number on page load
+        const adminStudentNoInput = document.getElementById('adminStudentNo');
+        if (adminStudentNoInput) {
+            const students = JSON.parse(localStorage.getItem('berean_students')) || [];
+            const nextId = students.length > 0 ? Math.max(...students.map(s => parseInt(s.studentNo))) + 1 : 1;
+            adminStudentNoInput.value = String(nextId).padStart(4, '0');
+        }
+        
+        // Admin Registration Form Handler
+        const adminRegistrationForm = document.getElementById('adminRegistrationForm');
+        if (adminRegistrationForm) {
             
-            Swal.fire({
-                icon: 'success',
-                title: 'Student Registered!',
-                text: 'Student has been registered successfully.',
-                confirmButtonColor: '#6ba83d',
-                timer: 3000,
-                timerProgressBar: true
+            adminRegistrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                console.log('Form submitted!');
+                
+                // Get current students array
+                let students = JSON.parse(localStorage.getItem('berean_students')) || [];
+                let nextId = students.length > 0 ? Math.max(...students.map(s => parseInt(s.studentNo))) + 1 : 1;
+                
+                // Get form values - using direct getElementById
+                const fullName = document.getElementById('adminFullName')?.value.trim();
+                const password = document.getElementById('adminPassword')?.value;
+                const dob = document.getElementById('adminDob')?.value;
+                const age = document.getElementById('adminAge')?.value;
+                
+                console.log('Form values:', { fullName, password, dob, age });
+                
+                // Validate required fields
+                if (!fullName) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Required Field',
+                        text: 'Full Name is required!',
+                        confirmButtonColor: '#6ba83d'
+                    });
+                    return false;
+                }
+                
+                if (!password) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Required Field',
+                        text: 'Password is required!',
+                        confirmButtonColor: '#6ba83d'
+                    });
+                    return false;
+                }
+                
+                if (!dob) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Required Field',
+                        text: 'Date of Birth is required!',
+                        confirmButtonColor: '#6ba83d'
+                    });
+                    return false;
+                }
+                
+                if (!age) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Required Field',
+                        text: 'Age is required!',
+                        confirmButtonColor: '#6ba83d'
+                    });
+                    return false;
+                }
+                
+                // Create new student object
+                const newStudent = {
+                    studentNo: String(nextId).padStart(4, '0'),
+                    fullName: fullName,
+                    nickname: document.getElementById('adminNickname')?.value.trim() || '',
+                    dob: dob,
+                    age: age,
+                    civilStatus: document.getElementById('adminCivilStatus')?.value.trim() || '',
+                    nationality: document.getElementById('adminNationality')?.value.trim() || '',
+                    presentAddress: document.getElementById('adminPresentAddress')?.value.trim() || '',
+                    mobileNo: document.getElementById('adminMobileNo')?.value.trim() || '',
+                    occupation: document.getElementById('adminOccupation')?.value.trim() || '',
+                    businessAddress: document.getElementById('adminBusinessAddress')?.value.trim() || '',
+                    businessTel: document.getElementById('adminBusinessTel')?.value.trim() || '',
+                    schoolGraduated: document.getElementById('adminSchoolGraduated')?.value.trim() || '',
+                    dateGraduated: document.getElementById('adminDateGraduated')?.value || '',
+                    degreeAwards: document.getElementById('adminDegreeAwards')?.value.trim() || '',
+                    charRefName: document.getElementById('adminCharRefName')?.value.trim() || '',
+                    refContact: document.getElementById('adminRefContact')?.value.trim() || '',
+                    emergencyName: document.getElementById('adminEmergencyName')?.value.trim() || '',
+                    emergencyAddress: document.getElementById('adminEmergencyAddress')?.value.trim() || '',
+                    emergencyNo: document.getElementById('adminEmergencyNo')?.value.trim() || '',
+                    relation: document.getElementById('adminRelation')?.value.trim() || '',
+                    homeChurch: document.getElementById('adminHomeChurch')?.value.trim() || '',
+                    churchAddress: document.getElementById('adminChurchAddress')?.value.trim() || '',
+                    pastorName: document.getElementById('adminPastorName')?.value.trim() || '',
+                    dateSaved: document.getElementById('adminDateSaved')?.value || '',
+                    dateBaptized: document.getElementById('adminDateBaptized')?.value || '',
+                    ministries: document.getElementById('adminMinistries')?.value.trim() || '',
+                    specialSkills: document.getElementById('adminSpecialSkills')?.value.trim() || '',
+                    instruments: document.getElementById('adminInstruments')?.value.trim() || '',
+                    reasonEnrolling: document.getElementById('adminReasonEnrolling')?.value.trim() || '',
+                    healthInfo: document.getElementById('adminHealthInfo')?.value.trim() || '',
+                    testimony: document.getElementById('adminTestimony')?.value.trim() || '',
+                    password: password,
+                    enrolledSubjects: []
+                };
+                
+                console.log('New student created:', newStudent);
+                
+                // Add to students array
+                students.push(newStudent);
+                
+                // Save to localStorage
+                localStorage.setItem('berean_students', JSON.stringify(students));
+                console.log('Saved to localStorage, total students:', students.length);
+                
+                // Update next ID
+                nextId++;
+                
+                // Reset the form
+                adminRegistrationForm.reset();
+                
+                // Update the student number field for next registration
+                if (adminStudentNoInput) {
+                    adminStudentNoInput.value = String(nextId).padStart(4, '0');
+                }
+                
+                // Update the students table if function exists
+                if (typeof populateAdminStudentsTable === 'function') {
+                    populateAdminStudentsTable();
+                }
+                
+                // Update student select dropdown if function exists
+                if (typeof populateStudentSelects === 'function') {
+                    populateStudentSelects();
+                }
+                
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registration Successful!',
+                    html: `
+                        <div style="text-align: center;">
+                            <p><strong>${newStudent.fullName}</strong> has been registered successfully!</p>
+                            <p class="mb-0">Student Number: <span class="badge bg-success">${newStudent.studentNo}</span></p>
+                        </div>
+                    `,
+                    confirmButtonColor: '#6ba83d',
+                    confirmButtonText: 'Great!',
+                    timer: 4000,
+                    timerProgressBar: true
+                }).then(() => {
+                    // Optionally scroll back to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                
+                return false;
             });
-        });
-    }
+        }
+    });
     
     // Admin enrollment form
     const adminEnrollmentForm = document.getElementById('adminEnrollmentForm');
