@@ -171,9 +171,28 @@
                 font-size: 1em;
             }
             
+            .sidebar-nav {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .sidebar-nav li {
+                margin-bottom: 8px;
+                padding: 0;
+                list-style: none;
+            }
+            
             .sidebar-nav button {
                 font-size: 13px;
                 padding: 10px 12px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .sidebar-footer {
+                left: 20px;
+                right: 20px;
+                width: calc(100% - 40px);
             }
             
             .sidebar-header h1 {
@@ -284,6 +303,7 @@
                 </ul>
             </nav>
             <div class="sidebar-footer">
+                <button class="update-password-btn" id="adminUpdatePassword"><i class="bi bi-key-fill"></i> Update Password</button>
                 <button class="logout-btn" id="adminLogout"><i class="bi bi-box-arrow-right"></i> Logout</button>
             </div>
         </aside>
@@ -310,7 +330,7 @@
                                 <span class="input-group-text bg-success text-white">
                                     <i class="bi bi-search"></i>
                                 </span>
-                                <input type="text" id="searchStudentInput" class="form-control" placeholder="Search by name, student number, or mobile...">
+                                <input type="text" id="searchStudentInput" class="form-control" placeholder="Search by name, student number, or mobile number...">
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -366,6 +386,14 @@
                                     <input type="number" id="adminAge" class="form-control" min="15" placeholder="Enter age" required>
                                 </div>
                                 <div class="col-md-6">
+                                    <label class="form-label"><i class="bi bi-gender-ambiguous me-2"></i>Gender <span class="text-danger">*</span></label>
+                                    <select id="adminGender" class="form-select" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-heart-fill me-2"></i>Civil Status</label>
                                     <input type="text" id="adminCivilStatus" class="form-control" placeholder="e.g., Single, Married">
                                 </div>
@@ -379,7 +407,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-phone-fill me-2"></i>Mobile No.</label>
-                                    <input type="text" id="adminMobileNo" class="form-control" placeholder="e.g., 0912-345-6789">
+                                    <input type="tel" id="adminMobileNo" class="form-control" pattern="[0-9\s\-\+\(\)]+" placeholder="e.g., 0912-345-6789">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-briefcase-fill me-2"></i>Occupation</label>
@@ -391,7 +419,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-telephone-fill me-2"></i>Business Tel No.</label>
-                                    <input type="text" id="adminBusinessTel" class="form-control" placeholder="Enter telephone number">
+                                    <input type="tel" id="adminBusinessTel" class="form-control" pattern="[0-9\s\-\+\(\)]+" placeholder="e.g., 02-123-4567">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-mortarboard-fill me-2"></i>School Graduated</label>
@@ -410,8 +438,8 @@
                                     <input type="text" id="adminCharRefName" class="form-control" placeholder="Enter reference name">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label"><i class="bi bi-telephone me-2"></i>Reference Contact</label>
-                                    <input type="text" id="adminRefContact" class="form-control" placeholder="Enter contact number">
+                                    <label class="form-label"><i class="bi bi-telephone-forward me-2"></i>Emergency No.</label>
+                                    <input type="tel" id="adminEmergencyNo" class="form-control" pattern="[0-9\s\-\+\(\)]+" placeholder="e.g., 0912-345-6789">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-person-exclamation me-2"></i>Emergency Contact Name</label>
@@ -423,7 +451,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-telephone-forward me-2"></i>Emergency No.</label>
-                                    <input type="text" id="adminEmergencyNo" class="form-control" placeholder="Enter emergency number">
+                                    <input type="tel" id="adminEmergencyNo" class="form-control" pattern="[0-9\s\-\+\(\)]+" placeholder="e.g., 0912-345-6789">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-people me-2"></i>Relation</label>
@@ -515,8 +543,8 @@
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-card-checklist me-2"></i>Enrollment Type <span class="text-danger">*</span></label>
                                     <select id="adminEnrollType" class="form-select form-select-lg" required>
-                                        <option value="bundle">📦 Bundle (Full Semester)</option>
-                                        <option value="single">📝 Single Subjects</option>
+                                        <option value="bundle">Bundle (Full Semester)</option>
+                                        <option value="single">Single Subjects</option>
                                     </select>
                                 </div>
                             </div>
@@ -526,16 +554,16 @@
                                     <div class="col-md-6">
                                         <label class="form-label"><i class="bi bi-calendar3 me-2"></i>Year Level <span class="text-danger">*</span></label>
                                         <select id="adminYearSelect" class="form-select form-select-lg" required>
-                                            <option value="1st Year">1️⃣ 1st Year</option>
-                                            <option value="2nd Year">2️⃣ 2nd Year</option>
-                                            <option value="3rd Year">3️⃣ 3rd Year</option>
+                                            <option value="1st Year">1st Year</option>
+                                            <option value="2nd Year">2nd Year</option>
+                                            <option value="3rd Year">3rd Year</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label"><i class="bi bi-calendar-range me-2"></i>Semester <span class="text-danger">*</span></label>
                                         <select id="adminSemSelect" class="form-select form-select-lg" required>
-                                            <option value="1st Sem">📅 1st Semester</option>
-                                            <option value="2nd Sem">📅 2nd Semester</option>
+                                            <option value="1st Sem">1st Semester</option>
+                                            <option value="2nd Sem">2nd Semester</option>
                                         </select>
                                     </div>
                                 </div>
@@ -570,8 +598,9 @@
                         <form id="searchForm">
                             <div class="row g-3">
                                 <div class="col-md-8">
-                                    <label class="form-label"><i class="bi bi-person-search me-2"></i>Enter Full Name</label>
-                                    <input type="text" id="searchName" class="form-control form-control-lg" placeholder="Enter student's full name exactly..." required>
+                                    <label class="form-label"><i class="bi bi-person-search me-2"></i>Search by Name or Student Number</label>
+                                    <input type="text" id="searchName" class="form-control form-control-lg" placeholder="Enter student's full name or student number..." required>
+                                    <small class="text-muted"><i class="bi bi-info-circle me-1"></i>You can search by full name or student number</small>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-end">
                                     <button type="submit" class="btn btn-success btn-lg w-100">

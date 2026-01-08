@@ -81,9 +81,28 @@
                 display: none;
             }
             
+            .sidebar-nav {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .sidebar-nav li {
+                margin-bottom: 8px;
+                padding: 0;
+                list-style: none;
+            }
+            
             .sidebar-nav button {
                 font-size: 14px;
                 padding: 12px 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .sidebar-footer {
+                left: 20px;
+                right: 20px;
+                width: calc(100% - 40px);
             }
         }
     </style>
@@ -109,57 +128,63 @@
                 </ul>
             </nav>
             <div class="sidebar-footer">
+                <button class="update-password-btn" id="studentUpdatePassword"><i class="bi bi-key-fill"></i> Update Password</button>
                 <button class="logout-btn" id="studentLogout"><i class="bi bi-box-arrow-right"></i> Logout</button>
             </div>
         </aside>
 
         <main class="main-content" id="studentContent">
-            <div class="top-bar">
-                <h2>Welcome, <span id="studentName"></span></h2>
+            <div class="top-bar" style="background: linear-gradient(135deg, #ffffff 0%, #f0f7eb 100%); border-bottom: 3px solid var(--accent-green);">
+                <h2 style="color: var(--primary-green);">Welcome, <span id="studentName" style="color: var(--blue-primary);"></span></h2>
                 <div class="user-info">
-                    <div class="user-avatar" id="studentAvatar">S</div>
-                    <span><strong id="studentNameTop"></strong></span>
+                    <div class="user-avatar" id="studentAvatar" style="background: linear-gradient(135deg, var(--blue-primary), var(--teal-light)); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);"></div>
+                    <span style="color: var(--primary-green);"><strong id="studentNameTop"></strong></span>
                 </div>
             </div>
 
             <!-- Student Home Section -->
             <div id="studentHome" class="dashboard-section active">
-                <div class="card">
-                    <div class="card-header bg-success text-white">
-                        <h3 class="mb-0"><i class="bi bi-speedometer2 me-2"></i>Dashboard Overview</h3>
+                <div class="card shadow-lg" style="border: none; border-radius: 15px; overflow: hidden;">
+                    <div class="card-header text-white" style="background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%) !important; padding: 25px 30px;">
+                        <h3 class="mb-0 d-flex align-items-center">
+                            <i class="bi bi-speedometer2 me-2 fs-4"></i>
+                            <span>Dashboard Overview</span>
+                        </h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="padding: 30px; background: linear-gradient(to bottom, #f8fdf6, #ffffff);">
                         <div class="row g-4 mt-2">
                             <div class="col-md-6 col-lg-4">
-                                <div class="stat-card stat-success">
-                                    <div class="stat-icon">
+                                <div class="stat-card stat-success" style="border-left: 5px solid var(--blue-primary); background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);">
+                                    <div class="stat-icon" style="background: linear-gradient(135deg, var(--blue-primary), var(--blue-light)); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);">
                                         <i class="bi bi-book-fill"></i>
                                     </div>
                                     <div class="stat-content">
-                                        <h5>Enrolled Subjects</h5>
-                                        <h2 id="subjectCount">0</h2>
+                                        <h5 style="color: #666; font-weight: 600;">Enrolled Subjects</h5>
+                                        <h2 id="subjectCount" style="color: var(--blue-primary); font-size: 2.5em; margin-top: 8px;">0</h2>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
-                                <div class="stat-card stat-primary">
-                                    <div class="stat-icon">
+                                <div class="stat-card stat-primary" style="border-left: 5px solid var(--accent-green); background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);">
+                                    <div class="stat-icon" style="background: linear-gradient(135deg, var(--accent-green), var(--light-green)); box-shadow: 0 4px 15px rgba(107, 168, 61, 0.3);">
                                         <i class="bi bi-person-check-fill"></i>
                                     </div>
                                     <div class="stat-content">
-                                        <h5>Status</h5>
-                                        <h3>Active</h3>
+                                        <h5 style="color: #666; font-weight: 600;">Status</h5>
+                                        <h3 style="color: var(--accent-green); font-size: 1.8em; margin-top: 8px;">
+                                            <span class="badge" style="background: linear-gradient(135deg, var(--accent-green), var(--light-green)); font-size: 0.6em; padding: 8px 15px; border: none;">Active</span>
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
-                                <div class="stat-card stat-info">
-                                    <div class="stat-icon">
+                                <div class="stat-card stat-info" style="border-left: 5px solid var(--orange-primary); background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);">
+                                    <div class="stat-icon" style="background: linear-gradient(135deg, var(--orange-primary), var(--orange-light)); box-shadow: 0 4px 15px rgba(234, 88, 12, 0.3);">
                                         <i class="bi bi-calendar-check-fill"></i>
                                     </div>
                                     <div class="stat-content">
-                                        <h5>Academic Year</h5>
-                                        <h3>2024-2025</h3>
+                                        <h5 style="color: #666; font-weight: 600;">Academic Year</h5>
+                                        <h3 style="color: var(--orange-primary); font-size: 1.8em; margin-top: 8px;">2024-2025</h3>
                                     </div>
                                 </div>
                             </div>
@@ -167,28 +192,31 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h3 class="mb-0"><i class="bi bi-lightning-fill me-2"></i>Quick Actions</h3>
+                <div class="card shadow-lg" style="border: none; border-radius: 15px; overflow: hidden; margin-top: 25px;">
+                    <div class="card-header text-white" style="background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-light) 100%) !important; padding: 25px 30px;">
+                        <h3 class="mb-0 d-flex align-items-center">
+                            <i class="bi bi-lightning-fill me-2 fs-4"></i>
+                            <span>Quick Actions</span>
+                        </h3>
                     </div>
-                    <div class="card-body">
-                        <div class="row g-3">
+                    <div class="card-body" style="padding: 30px; background: linear-gradient(to bottom, #f8fdf6, #ffffff);">
+                        <div class="row g-4">
                             <div class="col-md-4">
-                                <button class="btn btn-success btn-lg w-100 action-btn" onclick="showSection('studentEnrollment')">
+                                <button class="btn btn-lg w-100 action-btn" style="background: linear-gradient(135deg, var(--accent-green), var(--light-green)); border: none; color: white; padding: 25px 20px; box-shadow: 0 4px 15px rgba(107, 168, 61, 0.3);" onclick="showSection('studentEnrollment')">
                                     <i class="bi bi-clipboard-plus fs-1 d-block mb-2"></i>
-                                    <span>Enroll Subjects</span>
+                                    <span style="font-weight: 600;">Enroll Subjects</span>
                                 </button>
                             </div>
                             <div class="col-md-4">
-                                <button class="btn btn-primary btn-lg w-100 action-btn" onclick="showSection('studentSubjects')">
+                                <button class="btn btn-lg w-100 action-btn" style="background: linear-gradient(135deg, var(--purple-primary), var(--purple-light)); border: none; color: white; padding: 25px 20px; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);" onclick="showSection('studentSubjects')">
                                     <i class="bi bi-book-fill fs-1 d-block mb-2"></i>
-                                    <span>My Subjects</span>
+                                    <span style="font-weight: 600;">My Subjects</span>
                                 </button>
                             </div>
                             <div class="col-md-4">
-                                <button class="btn btn-info btn-lg w-100 action-btn" onclick="document.getElementById('viewProfile').click()">
+                                <button class="btn btn-lg w-100 action-btn" style="background: linear-gradient(135deg, var(--teal-primary), var(--teal-light)); border: none; color: white; padding: 25px 20px; box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);" onclick="document.getElementById('viewProfile').click()">
                                     <i class="bi bi-person-circle fs-1 d-block mb-2"></i>
-                                    <span>View Profile</span>
+                                    <span style="font-weight: 600;">View Profile</span>
                                 </button>
                             </div>
                         </div>
@@ -198,9 +226,12 @@
 
             <!-- Student Enrollment Section -->
             <div id="studentEnrollment" class="dashboard-section">
-                <div class="card">
-                    <div class="card-header bg-success text-white">
-                        <h3 class="mb-0"><i class="bi bi-clipboard-plus me-2"></i>Enroll to Subjects</h3>
+                <div class="card shadow-lg" style="border: none; border-radius: 15px; overflow: hidden;">
+                    <div class="card-header text-white" style="background: linear-gradient(135deg, var(--accent-green) 0%, var(--teal-light) 100%) !important; padding: 25px 30px;">
+                        <h3 class="mb-0 d-flex align-items-center">
+                            <i class="bi bi-clipboard-plus me-2 fs-4"></i>
+                            <span>Enroll to Subjects</span>
+                        </h3>
                     </div>
                     <div class="card-body">
                         <div class="alert alert-info d-flex align-items-center">
@@ -214,8 +245,8 @@
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="bi bi-card-checklist me-2"></i>Enrollment Type <span class="text-danger">*</span></label>
                                     <select id="studentEnrollType" class="form-select form-select-lg" required>
-                                        <option value="bundle">📦 Bundle (Full Semester)</option>
-                                        <option value="single">📝 Single Subjects</option>
+                                        <option value="bundle">Bundle (Full Semester)</option>
+                                        <option value="single">Single Subjects</option>
                                     </select>
                                 </div>
                             </div>
@@ -225,16 +256,16 @@
                                     <div class="col-md-6">
                                         <label class="form-label"><i class="bi bi-calendar3 me-2"></i>Year Level <span class="text-danger">*</span></label>
                                         <select id="studentYearSelect" class="form-select form-select-lg" required>
-                                            <option value="1st Year">1️⃣ 1st Year</option>
-                                            <option value="2nd Year">2️⃣ 2nd Year</option>
-                                            <option value="3rd Year">3️⃣ 3rd Year</option>
+                                            <option value="1st Year">1st Year</option>
+                                            <option value="2nd Year">2nd Year</option>
+                                            <option value="3rd Year">3rd Year</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label"><i class="bi bi-calendar-range me-2"></i>Semester <span class="text-danger">*</span></label>
                                         <select id="studentSemSelect" class="form-select form-select-lg" required>
-                                            <option value="1st Sem">📅 1st Semester</option>
-                                            <option value="2nd Sem">📅 2nd Semester</option>
+                                            <option value="1st Sem">1st Semester</option>
+                                            <option value="2nd Sem">2nd Semester</option>
                                         </select>
                                     </div>
                                 </div>
@@ -261,10 +292,15 @@
 
             <!-- Student Subjects Section -->
             <div id="studentSubjects" class="dashboard-section">
-                <div class="card">
-                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-                        <h3 class="mb-0"><i class="bi bi-book-fill me-2"></i>Your Enrolled Subjects</h3>
-                        <span class="badge bg-light text-dark"><i class="bi bi-bookmark-fill me-1"></i><span id="studentSubjectCount">0</span> Subjects</span>
+                <div class="card shadow-lg" style="border: none; border-radius: 15px; overflow: hidden;">
+                    <div class="card-header text-white d-flex justify-content-between align-items-center" style="background: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-light) 100%) !important; padding: 25px 30px;">
+                        <h3 class="mb-0 d-flex align-items-center">
+                            <i class="bi bi-book-fill me-2 fs-4"></i>
+                            <span>Your Enrolled Subjects</span>
+                        </h3>
+                        <span class="badge bg-light text-dark" style="font-size: 1em; padding: 10px 15px;">
+                            <i class="bi bi-bookmark-fill me-1"></i><span id="studentSubjectCount">0</span> Subjects
+                        </span>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

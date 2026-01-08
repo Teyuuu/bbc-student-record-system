@@ -13,6 +13,19 @@
     --white: #ffffff;
     --gray-light: #e8f5e1;
     --shadow: rgba(45, 80, 22, 0.1);
+    /* Complementary Colors */
+    --blue-primary: #2563eb;
+    --blue-light: #3b82f6;
+    --blue-accent: #60a5fa;
+    --orange-primary: #ea580c;
+    --orange-light: #f97316;
+    --orange-accent: #fb923c;
+    --purple-primary: #7c3aed;
+    --purple-light: #8b5cf6;
+    --purple-accent: #a78bfa;
+    --teal-primary: #0d9488;
+    --teal-light: #14b8a6;
+    --teal-accent: #5eead4;
 }
 
 body {
@@ -54,6 +67,11 @@ body {
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
+.sidebar nav {
+    padding: 0;
+    margin: 0;
+}
+
 .sidebar-header h1 {
     font-size: 1.5em;
     margin-bottom: 5px;
@@ -67,10 +85,15 @@ body {
 
 .sidebar-nav {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .sidebar-nav li {
     margin-bottom: 10px;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .sidebar-nav button {
@@ -88,6 +111,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+    box-sizing: border-box;
 }
 
 .sidebar-nav button:hover {
@@ -102,6 +126,9 @@ body {
 
 .sidebar-nav button i {
     font-size: 1.2em;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
 }
 
 .sidebar-footer {
@@ -109,6 +136,31 @@ body {
     bottom: 20px;
     left: 20px;
     right: 20px;
+    width: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.update-password-btn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(107, 168, 61, 0.9);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.update-password-btn:hover {
+    background: rgba(107, 168, 61, 1);
 }
 
 .logout-btn {
@@ -435,11 +487,11 @@ select[multiple] {
 }
 
 .stat-primary {
-    border-color: #2196F3;
+    border-color: var(--light-green);
 }
 
 .stat-info {
-    border-color: #17a2b8;
+    border-color: var(--accent-green);
 }
 
 .stat-icon {
@@ -459,12 +511,12 @@ select[multiple] {
 }
 
 .stat-primary .stat-icon {
-    background: linear-gradient(135deg, #2196F3, #1976D2);
+    background: linear-gradient(135deg, var(--light-green), var(--accent-green));
     color: white;
 }
 
 .stat-info .stat-icon {
-    background: linear-gradient(135deg, #17a2b8, #138496);
+    background: linear-gradient(135deg, var(--accent-green), var(--primary-green));
     color: white;
 }
 
@@ -475,11 +527,18 @@ select[multiple] {
     font-weight: 500;
 }
 
-.stat-content h2,
+.stat-content h2 {
+    margin: 5px 0 0 0;
+    color: var(--accent-green);
+    font-weight: bold;
+    font-size: 2.2em;
+}
+
 .stat-content h3 {
     margin: 5px 0 0 0;
     color: var(--text-dark);
     font-weight: bold;
+    font-size: 1.5em;
 }
 
 /* Action Buttons */
@@ -488,11 +547,13 @@ select[multiple] {
     text-align: center;
     font-weight: 600;
     transition: all 0.3s;
+    border-radius: 12px;
 }
 
 .action-btn:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 25px rgba(107, 168, 61, 0.4) !important;
+    filter: brightness(1.1);
 }
 
 .action-btn i {
@@ -500,7 +561,7 @@ select[multiple] {
 }
 
 .action-btn:hover i {
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 /* Mobile Responsive */
@@ -534,6 +595,27 @@ select[multiple] {
     
     .form-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .sidebar-nav {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .sidebar-nav li {
+        margin-bottom: 8px;
+        padding: 0;
+    }
+    
+    .sidebar-nav button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .sidebar-footer {
+        left: 20px;
+        right: 20px;
+        width: calc(100% - 40px);
     }
 }
 
@@ -637,9 +719,27 @@ select[multiple] {
         display: none;
     }
     
+    .sidebar-nav {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .sidebar-nav li {
+        margin-bottom: 8px;
+        padding: 0;
+    }
+    
     .sidebar-nav button {
         font-size: 14px;
         padding: 12px 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .sidebar-footer {
+        left: 20px;
+        right: 20px;
+        width: calc(100% - 40px);
     }
     
     input, select, textarea {
